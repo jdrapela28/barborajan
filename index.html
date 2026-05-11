@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbora & Jan | 8. 8. 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#d4a574;--gold-dark:#b8895a;--brown:#8b7355;
+  --text:#2c2c2c;--muted:#777;--bg:#faf9f7;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400}
+
+.page{display:none;min-height:calc(100vh - 56px)}
+.page.active{display:block}
+
+nav{
+  background:rgba(250,249,247,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(212,165,116,.2);
+  padding:.75rem 1.5rem;position:sticky;top:0;z-index:300;
+  display:flex;align-items:center;justify-content:center;gap:clamp(1rem,4vw,3rem);
+  flex-wrap:wrap;
+}
+nav a.nav-link{
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  text-decoration:none;color:var(--muted);transition:color .3s;cursor:pointer;
+}
+nav a.nav-link.active,nav a.nav-link:hover{color:var(--gold-dark)}
+nav a.nav-link.active{border-bottom:1px solid var(--gold);padding-bottom:2px}
+
+/* CTA nav button */
+nav a.nav-cta{
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;
+  padding:.45rem 1.3rem;
+  border:1px solid var(--gold);border-radius:4px;
+  color:var(--white);background:var(--gold-dark);
+  font-family:'Montserrat',sans-serif;
+  transition:background .3s,color .3s;
+  white-space:nowrap;
+}
+nav a.nav-cta:hover{background:var(--brown);border-color:var(--brown)}
+
+/* HERO */
+.hero{
+  height:calc(100vh - 56px);min-height:480px;
+  display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;
+  position:relative;overflow:hidden;padding:2rem;
+  padding-top:clamp(3rem, 12vh, 7rem);
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:url('https://lh3.googleusercontent.com/pw/AP1GczNwzKV_nlpLfa7Kf0472pRjpV-6Sa2qogeFw6MjFuVB_e44aywrAHd_8XZ7YaKM2q1kDtGrLPXIo-kBXRnkRDwkP0sOHz2qc4YljQhjWgAruOZAGTab=w1600');
+  background-size:cover;background-position:center;
+  filter:brightness(.45) saturate(.7);
+}
+.hero-inner{position:relative;z-index:1;animation:fadeUp 1.3s ease both}
+.hero-overline{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:1.4rem}
+.hero-names{font-size:clamp(2rem,5.5vw,3.8rem);color:#fff;font-weight:300;white-space:nowrap}
+.hero-ampersand{font-size:clamp(2.2rem,6.5vw,4.2rem);color:var(--gold);font-style:italic;margin:0 .5rem}
+.hero-date{font-size:clamp(.95rem,2.2vw,1.35rem);color:rgba(255,255,255,.78);letter-spacing:.2em;font-style:italic;margin-top:1.2rem}
+.hero-location{font-size:.72rem;letter-spacing:.22em;color:var(--gold);margin-top:.6rem;text-transform:uppercase}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  color:var(--gold);font-size:1.5rem;animation:bounce 2s infinite;text-decoration:none;
+}
+
+/* COUNTDOWN */
+.countdown-strip{background:var(--brown);padding:2rem 1.5rem;text-align:center}
+.countdown-tagline{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.1rem,2.5vw,1.5rem);color:rgba(255,255,255,.75);
+  margin-bottom:1.2rem;letter-spacing:.04em;
+}
+.countdown-units{display:flex;justify-content:center;align-items:center}
+.cd-unit{text-align:center;padding:0 1.4rem}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5.5vw,3.8rem);color:var(--white);line-height:1}
+.cd-label{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.3rem}
+.cd-sep{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:rgba(255,255,255,.2);align-self:flex-start;padding-top:.15em}
+
+/* INFO STRIP */
+.info-section{
+  background:linear-gradient(135deg,#fdf6ee,#ede3d5);
+  padding:3.5rem 1.5rem 3rem;
+}
+.info-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  max-width:900px;margin:0 auto;gap:0;
+}
+.info-block{
+  padding:2.2rem 1.8rem;text-align:center;
+  border-right:1px solid rgba(139,115,85,.15);
+  transition:background .3s;
+}
+.info-block:last-child{border-right:none}
+.info-svg{display:block;margin:0 auto .9rem;line-height:1}
+.info-svg svg{width:28px;height:28px;stroke:#2c2c2c;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.info-block h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--brown);margin-bottom:.6rem;letter-spacing:.03em}
+.info-block p{color:var(--muted);font-size:.86rem;line-height:1.75}
+.info-cta{text-align:center;margin-top:2.2rem}
+
+/* SHARED */
+.section-wrap{padding:4.5rem 1.5rem;max-width:1100px;margin:0 auto}
+.section-wrap.shaded{max-width:100%;background:linear-gradient(135deg,#fdf6ee,#ede3d5)}
+.section-inner{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.section-label{text-align:center;font-size:.66rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:.6rem}
+.section-title{font-size:clamp(1.9rem,4vw,3rem);text-align:center;color:var(--brown);margin-bottom:.7rem}
+.section-rule{width:48px;height:1px;background:var(--gold);margin:0 auto 2.5rem}
+
+.story-preview{max-width:680px;margin:0 auto;text-align:center}
+.story-preview p{color:var(--muted);font-size:1rem;line-height:1.9}
+
+.btn-link{
+  display:inline-block;padding:.65rem 2rem;
+  border:1px solid var(--gold);color:var(--gold-dark);
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:4px;cursor:pointer;
+  background:none;font-family:'Montserrat',sans-serif;
+  transition:background .3s,color .3s;
+}
+.btn-link:hover{background:var(--gold);color:var(--white)}
+
+/* FOOTER CTA */
+.footer-cta{background:linear-gradient(135deg,#fdf6ee,#ede3d5);text-align:center;padding:4rem 1.5rem}
+.footer-cta p{color:var(--muted);font-size:.95rem;line-height:1.8;max-width:520px;margin:0 auto 1.5rem}
+
+/* DETAIL BLOCKS */
+.detail-blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:2rem}
+.detail-block{padding:2rem 1.8rem;text-align:center;border-right:1px solid rgba(139,115,85,.15);border-bottom:1px solid rgba(139,115,85,.15)}
+.detail-block:nth-child(3n){border-right:none}
+.detail-block:nth-last-child(-n+3):nth-child(3n+1),
+.detail-block:nth-last-child(-n+2):nth-child(3n+2),
+.detail-block:last-child{border-bottom:none}
+.detail-block-svg{display:block;margin:0 auto .9rem}
+.detail-block-svg svg{width:28px;height:28px;stroke:#2c2c2c;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.detail-block h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--brown);margin-bottom:.6rem;font-weight:400}
+.detail-block p{color:var(--muted);font-size:.86rem;line-height:1.75}
+
+/* TIMELINE */
+.timeline{max-width:680px;margin:0 auto;position:relative;padding:1rem 0}
+.timeline::before{content:'';position:absolute;left:100px;top:0;bottom:0;width:1px;background:var(--gold)}
+.tl-item{display:flex;align-items:flex-start;padding:1.4rem 0;border-bottom:1px solid rgba(139,115,85,.1)}
+.tl-item:last-child{border-bottom:none}
+.tl-time{width:90px;flex-shrink:0;text-align:right;padding-right:1.2rem;padding-top:.2rem;font-size:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-dark);line-height:1.2}
+.tl-dot{flex-shrink:0;width:13px;height:13px;background:var(--gold);border-radius:50%;border:3px solid var(--bg);box-shadow:0 0 0 3px rgba(212,165,116,.3);z-index:1;margin-top:.55rem}
+.tl-content{flex:1;margin-left:1.2rem}
+.tl-content h4{font-size:1.25rem;color:var(--brown);margin-bottom:.2rem}
+.tl-content p{font-size:.86rem;color:var(--muted)}
+
+/* DRESSCODE */
+.dresscode-wrap{max-width:700px;margin:0 auto;text-align:center}
+.dresscode-text{color:var(--muted);font-size:.97rem;line-height:1.85;margin-bottom:2.2rem}
+.color-palette{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;padding-bottom:2.5rem}
+.color-swatch{width:80px;height:80px;border-radius:50%;position:relative;box-shadow:0 4px 14px rgba(0,0,0,.12);flex-shrink:0}
+.color-swatch span{position:absolute;bottom:-1.6rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+/* GALERIE */
+.gallery-section{padding:0 0 4rem}
+.gallery-section>.reveal{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.photo-mosaic{display:flex;flex-direction:column;gap:6px;margin-top:.5rem}
+.pm-row{display:flex;gap:6px}
+.pm-item{overflow:hidden;border-radius:6px;background:#e8e0d5;flex-shrink:0}
+.pm-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.pm-item:hover img{transform:scale(1.03)}
+
+/* MAPA */
+.map-link{display:block;text-align:center;margin-top:.8rem;font-size:.78rem;color:var(--gold-dark);letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.map-link:hover{color:var(--brown)}
+
+footer{background:var(--brown);color:rgba(255,255,255,.75);text-align:center;padding:2rem 1.5rem;font-size:.8rem;line-height:1.8}
+footer strong{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:700px){
+  nav{gap:.8rem .6rem}
+  .info-strip{grid-template-columns:1fr}
+  .info-block{border-right:none;border-bottom:1px solid rgba(139,115,85,.15)}
+  .info-block:last-child{border-bottom:none}
+  .detail-blocks{grid-template-columns:1fr}
+  .detail-block{grid-column:span 1;border-right:none}
+  .detail-block:last-child{border-bottom:none}
+  .timeline::before{left:72px}
+  .tl-time{width:62px;font-size:1.2rem;padding-right:.9rem}
+  .hero-names{white-space:normal}
+  .hero{padding-top:clamp(2rem,8vh,4rem)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-link active" data-page="uvod">Úvod</a>
+  <a class="nav-link" data-page="svatba">Svatba</a>
+  <a class="nav-cta" href="https://forms.gle/n5hmgdUjd7f2eT2X7" target="_blank">Potvrzení účasti</a>
+</nav>
+
+<!-- ══════════════ ÚVOD ══════════════ -->
+<div class="page active" id="page-uvod">
+
+  <div class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-inner">
+      <p class="hero-overline">Zveme vás na naši svatbu</p>
+      <h1 class="hero-names">Barbora <span class="hero-ampersand">&</span> Jan</h1>
+      <p class="hero-date">8. srpna 2026</p>
+      <p class="hero-location">Křtiny</p>
+    </div>
+    <a class="hero-scroll" href="#uvod-detail">↓</a>
+  </div>
+
+  <div class="countdown-strip">
+    <p class="countdown-tagline">Už brzy to spolu oslavíme</p>
+    <div class="countdown-units">
+      <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-label">dní</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-h">--</div><div class="cd-label">hodin</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-m">--</div><div class="cd-label">minut</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-s">--</div><div class="cd-label">vteřin</div></div>
+    </div>
+  </div>
+
+  <!-- INFO STRIP -->
+  <div id="uvod-detail" class="info-section">
+    <div class="info-strip reveal">
+      <div class="info-block">
+        <span class="info-svg">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+        </span>
+        <h3>Datum</h3>
+        <p>Sobota<br><strong>8. 8. 2026</strong><br>Obřad ve 13:00</p>
+      </div>
+      <div class="info-block">
+        <span class="info-svg">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </span>
+        <h3>Lokalita</h3>
+        <p>Kostel Jména Panny Marie<br><strong>Křtiny</strong><br>Hostina: Křtiny 178</p>
+      </div>
+      <div class="info-block">
+        <span class="info-svg">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </span>
+        <h3>Dresscode</h3>
+        <p>Elegantní slavnostní<br>Pastelové a světlé tóny<br>Bílá vyhrazena nevěstě</p>
+      </div>
+    </div>
+    <div class="info-cta reveal">
+      <button class="btn-link" data-page="svatba">Vše o svatebním dni →</button>
+    </div>
+  </div>
+
+  <!-- GALERIE -->
+  <div class="gallery-section">
+    <div class="reveal">
+      <p class="section-label" style="padding-top:3.5rem">Chvíle, které nás přivedly sem</p>
+      <h2 class="section-title">Náš příběh ve fotografiích</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="photo-mosaic" id="photoMosaic"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="footer-cta">
+    <p class="section-label reveal">Dorazíte?</p>
+    <h2 class="section-title reveal" style="margin-bottom:.7rem">Dejte nám vědět!</h2>
+    <div class="section-rule reveal"></div>
+    <p class="reveal">Rádi bychom věděli, zda se k nám připojíte. Potvrďte prosím svou účast prostřednictvím našeho formuláře – pomůže nám to s přípravami tak, aby byl tento den dokonalý pro každého z vás.</p>
+    <a class="btn-link reveal" href="https://forms.gle/n5hmgdUjd7f2eT2X7" target="_blank">Potvrdit účast →</a>
+  </div>
+
+</div><!-- /page-uvod -->
+
+
+<!-- ══════════════ SVATBA ══════════════ -->
+<div class="page" id="page-svatba">
+
+  <!-- ÚVOD -->
+  <div class="section-wrap" style="padding-bottom:0">
+    <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto">
+      <p class="section-label">Co vás čeká</p>
+      <h2 class="section-title">Náš svatební den</h2>
+      <div class="section-rule"></div>
+      <p style="color:var(--muted);font-size:.97rem;line-height:1.85">Koncept svatby je jednoduchý — užít si obřad a venkovní oslavu nově vzniklého manželství za dobré nálady, hudby a jídla s těmi nejbližšími.</p>
+    </div>
+  </div>
+
+  <div class="section-wrap shaded">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Vše co potřebujete vědět</p>
+        <h2 class="section-title">Detaily</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="detail-blocks reveal">
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+          </span>
+          <h3>Datum & čas</h3>
+          <p>Sobota <strong>8. srpna 2026</strong><br>Obřad začíná ve <strong>12:00</strong><br>Dostavte se prosím včas nebo dříve</p>
+        </div>
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </span>
+          <h3>Místa konání</h3>
+          <p><strong>Obřad:</strong> Kostel Jména Panny Marie, Křtiny<br><strong>Hostina:</strong> venkovní dvůr Křtiny 178</p>
+        </div>
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/></svg>
+          </span>
+          <h3>Dresscode</h3>
+          <p>Lehké a pohodlné v přírodnějším stylu. Formal black tie není nutný. Vítáme zemitější barvy.</p>
+        </div>
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </span>
+          <h3>Dary</h3>
+          <p>Dary prosíme nenoste. Budeme však rádi za <strong>finanční příspěvek</strong> na svatbu a za fotky, které na oslavě vyfotíte.</p>
+        </div>
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </span>
+          <h3>Ubytování</h3>
+          <p>Příjezd možný již v <strong>pátek 7. 8.</strong> Pokoje v domě nebo stan na zahradě — vezměte si vlastní spacáky a karimatky.</p>
+        </div>
+        <div class="detail-block">
+          <span class="detail-block-svg">
+            <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+          </span>
+          <h3>Odvoz</h3>
+          <p>Odvoz zajistíme do určité noční hodiny. Do Brna jezdí také taxi. Zájem uveďte ve formuláři.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRESSCODE -->
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">Jak se obléct</p>
+      <h2 class="section-title">Dresscode</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="dresscode-wrap reveal">
+      <p class="dresscode-text">Čeká vás venkovní letní oslava na dvoře pod širým nebem — oblékněte se lehce a pohodlně. Ideální je přírodnější, uvolněný styl vhodný do srpnového počasí. Formální <em>black tie</em> rozhodně není nutný.<br><br>Pokud chcete ladit s koncepcí svatby, sáhněte po zemitějších barvách — inspirujte se paletou níže. Protože budete celý den na dvoře a trávě, doporučujeme pohodlnou obuv.</p>
+      <div class="color-palette">
+        <div class="color-swatch" style="background:#ede8df"><span>Krémová</span></div>
+        <div class="color-swatch" style="background:#b09a72"><span>Khaki</span></div>
+        <div class="color-swatch" style="background:#9e6b50"><span>Terakota</span></div>
+        <div class="color-swatch" style="background:#8c3e18"><span>Rezavá</span></div>
+        <div class="color-swatch" style="background:#d9a63a"><span>Okr</span></div>
+        <div class="color-swatch" style="background:#3e5246"><span>Lesní zelená</span></div>
+        <div class="color-swatch" style="background:#3b3d22"><span>Olivová</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRAM -->
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">Jak bude den vypadat</p>
+      <h2 class="section-title">Harmonogram dne</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-time">12:00</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>Svatební obřad & gratulace</h4><p>Kostel Jména Panny Marie, Křtiny. Dostavte se prosím na čas nebo dříve.</p></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-time">14:00</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>Přesun na hostinu</h4><p>Venkovní dvůr Křtiny 178.</p></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-time">~14:30</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>Polévka & studená kuchyně</h4><p>Nejbližší rodina: polévka v sále školky. Pro ostatní studená kuchyně. Plnohodnotný raut pro všechny od 15:00.</p></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-time">~16:00</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>Veselí a muzika</h4><p>Hudba, tanec a dobrá nálada.</p></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-time">~18:00</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>První tanec & cimbálová muzika</h4><p>Zahájení taneční zábavy novomanželi, živá cimbálová muzika.</p></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-time">~21:00</div><div class="tl-dot"></div>
+        <div class="tl-content"><h4>Večerní zábava & prskavky</h4><p>Hudba a tanec do pozdních hodin. Těšte se na prskavkový tanec po setmění!</p></div>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--muted);font-size:.85rem;font-style:italic;margin-top:1.8rem;max-width:480px;margin-left:auto;margin-right:auto">Harmonogram je přibližný a bude se odvíjet dle nálady na hostině.</p>
+  </div>
+
+  <!-- UBYTOVÁNÍ -->
+  <div class="section-wrap">
+    <div class="reveal">
+      <p class="section-label">Kde se vyspat</p>
+      <h2 class="section-title">Ubytování</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="reveal" style="max-width:720px;margin:0 auto;color:var(--muted);font-size:.97rem;line-height:1.9">
+      <p>Příjezd je možný <strong>již v pátek 7. 8.</strong> — budeme moc rádi, pokud dorazíte o den dříve a pomůžete nám s posledními přípravami. Každá ruka se počítá a věříme, že to bude příjemný předsvatební večer pro nás všechny.</p>
+      <p style="margin-top:1.1rem">Ubytování nabízíme přímo u nás ve dvou variantách:</p>
+      <ul style="margin-top:.8rem;padding-left:1.4rem;line-height:2.1">
+        <li><strong style="color:var(--brown)">Pokoje v domě</strong> — omezená kapacita, zájem uveďte prosím ve formuláři co nejdříve.</li>
+        <li><strong style="color:var(--brown)">Stan na zahradě</strong> — nezapomeňte si prosím přibalit vlastní spacák a karimatku. Naše zásoby jsou velké, ale omezené.</li>
+      </ul>
+      <p style="margin-top:1.1rem">V případě potřeby se pokusíme zajistit pokoj v blízkých ubytovacích zařízeních, ovšem na vaše vlastní náklady.</p>
+    </div>
+  </div>
+
+  <!-- PARKOVÁNÍ -->
+  <div class="section-wrap shaded">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Kde zaparkovat</p>
+        <h2 class="section-title">Parkování</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="reveal" style="max-width:720px;margin:0 auto;color:var(--muted);font-size:.97rem;line-height:1.85;text-align:center">
+        <p>Parkovacích míst je před domem dost, ale nemůžeme zaručit, že pojmou všechny hosty. Pokud místo u domu nenajdete, využijte prosím alternativní parkoviště v obci.</p>
+        <div style="display:flex;justify-content:center;gap:3rem;margin-top:2rem;flex-wrap:wrap">
+          <div style="text-align:center">
+            <span style="display:block;margin-bottom:.5rem">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </span>
+            <strong style="color:var(--brown);font-family:'Cormorant Garamond',serif;font-size:1.15rem"><a href="https://maps.app.goo.gl/rs4V3JTJx2P1zZg79" target="_blank" style="color:var(--brown);text-decoration:underline;text-underline-offset:3px">Za obecním úřadem</a></strong>
+          </div>
+          <div style="text-align:center">
+            <span style="display:block;margin-bottom:.5rem">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </span>
+            <strong style="color:var(--brown);font-family:'Cormorant Garamond',serif;font-size:1.15rem"><a href="https://maps.app.goo.gl/hWdN2CLS4FbS4Lkt5" target="_blank" style="color:var(--brown);text-decoration:underline;text-underline-offset:3px">Před spolkovým domem</a></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPA -->
+  <div class="section-wrap shaded">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Jak nás najít</p>
+        <h2 class="section-title">Místo konání</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.5!2d16.7235!3d49.3195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4712b5e2b3b2b2b3%3A0x0!2zS8WZdGlueSAxNzgsIDY3OSAwNSBLxZl0aW55!5e0!3m2!1scs!2scz!4v1700000000000"
+          width="100%" height="300"
+          style="border:0;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.1);display:block"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <a class="map-link" href="https://maps.google.com/?q=Křtiny,+Česká+republika" target="_blank">Otevřít v Google Maps →</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-svatba -->
+
+<footer>
+  <strong>Barbora & Jan</strong><br>
+  8. 8. 2026 · Křtiny<br>
+  <span style="opacity:.45;font-size:.72rem">Vytvořeno s láskou pro náš velký den</span>
+</footer>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav a.nav-link').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const link=document.querySelector('nav a.nav-link[data-page="'+id+'"]');
+  if(link)link.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    document.querySelectorAll('#page-'+id+' .reveal').forEach(el=>{
+      observer.unobserve(el);el.classList.remove('visible');observer.observe(el);
+    });
+  },50);
+}
+document.querySelectorAll('[data-page]').forEach(el=>{
+  el.addEventListener('click',()=>showPage(el.getAttribute('data-page')));
+});
+
+const observer=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)e.target.classList.add('visible');
+}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+function tick(){
+  const diff=new Date('2026-08-08T13:00:00')-new Date();
+  if(diff<=0){
+    document.querySelector('.countdown-strip').innerHTML='<p style="color:#fff;font-family:\'Cormorant Garamond\',serif;font-size:1.8rem;font-style:italic">Dnes říkáme ano! 🤍</p>';
+    return;
+  }
+  const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+const photoBase64=null;
+(()=>{
+  const bg=document.getElementById('heroBg');
+  const inner=document.querySelector('.hero-inner');
+  if(photoBase64&&bg){
+    bg.style.backgroundImage=`url('${photoBase64}')`;
+    bg.style.backgroundSize='cover';
+    bg.style.backgroundPosition='60% center';
+    bg.style.filter='brightness(.6) saturate(.9)';
+    if(inner){inner.style.marginLeft='5vw';inner.style.textAlign='left';inner.style.maxWidth='480px';}
+  }
+})();
+
+// GALLERY – justified rows (každá řada vyplní plnou šířku, poměry stran zachovány)
+(function(){
+  const srcs=[
+    'https://lh3.googleusercontent.com/pw/AP1GczOVpuADamCvstgTeil97maPLNtqKPI0fgB1CRPNEersV_QTKr9N5x7IQecSlqP1f0xuRKMGBfOQZu5KJbfuAtVmuzIPCNfc12kVqm1gPn4NTIfhNVXz=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczNCOpFokhl41nyt3qUyasRR8Iy0g1NTc5bjbzm_ug6pf5E7XbVD2Op6sJttkaCmE6tTsn6GPiyN8frAvml6xppTqesN1gvtQxV4jI01Dch_sJj4ySiF=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczPxZE8kSaXnU2795pI-fj25YT52JWxu-2jAwk3qj7LOLskKA3BDtPRGApFAQjtGevueImb0nqVF0YVqT1vDU_i_XKXKJVKhB_ujNFTJqH4Qln2MNJmw=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczM1Kon-zpT5uDX5lwqkGTHd2VHaDO2kl2B3X_-ciPvDLYLszaBDQmXxchm2B2nRdT3V0A9bb1MW7E7XZ-wUcazYtsuwQ3z6IvoCHeVDGJM8odKjMLgC=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczMZMpLVF2KSPP44roFVuJ8DtCzlqwsCPVh22BnVKIYOL5lEYPhpt9HGK1FdEjCvwlM1NJ7jnham0nPCxxoJblmlfTXqGePl5PgY6H0DIRcKyBGn2rGg=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczPRJOyniDek7bQLmg0eh5yzkWLqqgqfIJ8u2HXcxKK1koxciJUQbhiNSVaChqrXIX_NULTtqSdhEb2NYaJCUQJFvZuERZI5z-AiCZ2gFbTcpxt8QmQs=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczOiiPCS-4LNQeyKemisUyidw9Wns2f-wDqmY1M5lWPEPThSFpz8WlsPH-ObTSYXxRfdksmbpMp7MToP8lOmNg_fSvMPvtgq0W551DcCfAOcQtVVjGFP=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczM58Vz21P6D7RSwQZREOu9H605c4Q2tPdJSd2xbGgdU9npZwVeKjXRbCxVQHBg2K9XY6_7ixbBvfvGY0qHwLWJxq_ZXXr7A33i_GIPIAgi-bClJrkhR=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczNpA-18YU3tHY446QJlq2Nu5S0rkGVSF1RJ39N8CqH-kWMyu4lClEec-Q_tMp5qCuspeq6vGWH-Z3gKiVg6fN4WQ5swQ_6jz5JC91SmCG5VkWWsJGEb=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczM-7k29aW-UBMbgMCiHL6NaQpH751Puwq2S6KNmz5h2pF3D4UIcxrSBbL9j2-Uh8LI3pXSEO77vgKc4y-8EdMrsNZLPORw6IBJal7euGuJTqpH2FQt5=w1200',
+    'https://lh3.googleusercontent.com/pw/AP1GczMcNe7QrC66oZh3IHkL72UZ3BahydoJOAOvdKKvb3zcEM5h5DXQbuTUJLI9v-jGcaY4ZLGA3FgwRcYJghpST3b5Z5QjgxzGm_IQfRNOaEzO2v311MnK=w1200'
+  ];
+  const GAP=6, TARGET_H=300, MAX_H=480;
+  const mosaic=document.getElementById('photoMosaic');
+  let loaded=0;
+  const imgs=srcs.map(src=>{const i=new Image();i.src=src;return i;});
+
+  function build(){
+    mosaic.innerHTML='';
+    const W=mosaic.getBoundingClientRect().width||900;
+    // group into rows
+    const rows=[];
+    let row=[],ratioSum=0;
+    imgs.forEach((img,idx)=>{
+      const r=img.naturalWidth/img.naturalHeight||1.5;
+      row.push({img,r});
+      ratioSum+=r;
+      const projW=ratioSum*TARGET_H+(row.length-1)*GAP;
+      if(projW>=W||idx===imgs.length-1){
+        rows.push({items:[...row],ratioSum});
+        row=[];ratioSum=0;
+      }
+    });
+    // render
+    rows.forEach(({items,ratioSum})=>{
+      let h=Math.round((W-(items.length-1)*GAP)/ratioSum);
+      h=Math.min(h,MAX_H);
+      const rowEl=document.createElement('div');
+      rowEl.className='pm-row';
+      items.forEach(({img,r})=>{
+        const w=Math.round(r*h);
+        const wrap=document.createElement('div');
+        wrap.className='pm-item';
+        wrap.style.width=w+'px';
+        wrap.style.height=h+'px';
+        wrap.style.flexShrink='0';
+        img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease';
+        img.onmouseenter=()=>img.style.transform='scale(1.03)';
+        img.onmouseleave=()=>img.style.transform='';
+        wrap.appendChild(img);
+        rowEl.appendChild(wrap);
+      });
+      mosaic.appendChild(rowEl);
+    });
+  }
+  function tryLoad(){if(++loaded===srcs.length)build();}
+  imgs.forEach(img=>{
+    if(img.complete&&img.naturalWidth)tryLoad();
+    else{img.onload=tryLoad;img.onerror=tryLoad;}
+  });
+  window.addEventListener('resize',()=>{loaded=srcs.length;build();});
+})();
+
+document.querySelector('.hero-scroll').addEventListener('click',function(e){
+  e.preventDefault();
+  document.getElementById('uvod-detail').scrollIntoView({behavior:'smooth'});
+});
+</script>
+</body>
+</html>
