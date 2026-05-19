@@ -32,9 +32,7 @@ nav a.nav-link{
 nav a.nav-link.active,nav a.nav-link:hover{color:var(--gold-dark)}
 nav a.nav-link.active{border-bottom:1px solid var(--gold);padding-bottom:2px}
 
-/* CTA nav button */
 nav a.nav-cta{
-
   font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
   text-decoration:none;cursor:pointer;
   padding:.45rem 1.3rem;
@@ -116,7 +114,6 @@ nav a.nav-cta:hover{background:var(--brown);border-color:var(--brown)}
 .story-preview p{color:var(--muted);font-size:1rem;line-height:1.9}
 
 .btn-link{
- 
   font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
   text-decoration:none;cursor:pointer;
   padding:.45rem 1.3rem;
@@ -125,8 +122,6 @@ nav a.nav-cta:hover{background:var(--brown);border-color:var(--brown)}
   font-family:'Montserrat',sans-serif;
   transition:background .3s,color .3s;
   white-space:nowrap;
-
-
 }
 .btn-link:hover{background:var(--gold);color:var(--white)}
 
@@ -160,9 +155,19 @@ nav a.nav-cta:hover{background:var(--brown);border-color:var(--brown)}
 /* DRESSCODE */
 .dresscode-wrap{max-width:700px;margin:0 auto;text-align:center}
 .dresscode-text{color:var(--muted);font-size:.97rem;line-height:1.85;margin-bottom:2.2rem}
-.color-palette{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;padding-bottom:2.5rem}
-.color-swatch{width:80px;height:80px;border-radius:50%;position:relative;box-shadow:0 4px 14px rgba(0,0,0,.12);flex-shrink:0}
-.color-swatch span{position:absolute;bottom:-1.6rem;left:50%;transform:translateX(-50%);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.color-palette{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding-bottom:2.5rem}
+.color-swatch{
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+}
+.swatch-dot{
+  width:72px;height:72px;border-radius:50%;
+  box-shadow:0 4px 14px rgba(0,0,0,.15);
+  flex-shrink:0;
+}
+.swatch-label{
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
 
 /* GALERIE */
 .gallery-section{padding:0 0 4rem}
@@ -257,7 +262,7 @@ footer strong{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size
           <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
         </span>
         <h3>Dresscode</h3>
-                <p><strong>Lehké a pohodlné</strong> v přírodnějším stylu.<br>Vítáme zemitější barvy.</p>
+        <p><strong>Lehké a pohodlné</strong> v přírodnějším stylu.<br>Vítáme zemitější barvy.</p>
       </div>
     </div>
     <div class="info-cta reveal">
@@ -364,13 +369,34 @@ footer strong{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size
     <div class="dresscode-wrap reveal">
       <p class="dresscode-text">Čeká nás venkovní letní oslava na dvoře pod širým nebem — oblékněte se lehce a pohodlně. Ideální je přírodnější, uvolněný styl vhodný do srpnového počasí. Formální <em>black tie</em> rozhodně není nutný.<br><br>Pokud chcete ladit s koncepcí svatby, sáhněte po zemitějších barvách — inspirujte se paletou níže. Protože budete celý den na dvoře a trávě, doporučujeme pohodlnou obuv.</p>
       <div class="color-palette">
-        <div class="color-swatch"><div class="swatch-dot" style="background:#ede8df"></div><span>Krémová</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#b09a72"></div><span>Khaki</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#9e6b50"></div><span>Terakota</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#8c3e18"></div><span>Rezavá</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#d9a63a"></div><span>Okr</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#3e5246"></div><span>Lesní zelená</span></div>
-        <div class="color-swatch"><div class="swatch-dot" style="background:#3b3d22"></div><span>Olivová</span></div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#f0e6d3"></div>
+          <span class="swatch-label">Krémová</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#a8906e"></div>
+          <span class="swatch-label">Khaki</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#c08068"></div>
+          <span class="swatch-label">Terakota</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#7e3e1a"></div>
+          <span class="swatch-label">Rezavá</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#d49420"></div>
+          <span class="swatch-label">Okr</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#3e5246"></div>
+          <span class="swatch-label">Lesní zelená</span>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-dot" style="background:#3e4018"></div>
+          <span class="swatch-label">Olivová</span>
+        </div>
       </div>
     </div>
   </div>
@@ -536,7 +562,6 @@ const photoBase64=null;
   }
 })();
 
-// GALLERY – justified rows (každá řada vyplní plnou šířku, poměry stran zachovány)
 (function(){
   const srcs=[
     'https://lh3.googleusercontent.com/pw/AP1GczOVpuADamCvstgTeil97maPLNtqKPI0fgB1CRPNEersV_QTKr9N5x7IQecSlqP1f0xuRKMGBfOQZu5KJbfuAtVmuzIPCNfc12kVqm1gPn4NTIfhNVXz=w1200',
@@ -551,7 +576,7 @@ const photoBase64=null;
     'https://lh3.googleusercontent.com/pw/AP1GczM-7k29aW-UBMbgMCiHL6NaQpH751Puwq2S6KNmz5h2pF3D4UIcxrSBbL9j2-Uh8LI3pXSEO77vgKc4y-8EdMrsNZLPORw6IBJal7euGuJTqpH2FQt5=w1200',
     'https://lh3.googleusercontent.com/pw/AP1GczMcNe7QrC66oZh3IHkL72UZ3BahydoJOAOvdKKvb3zcEM5h5DXQbuTUJLI9v-jGcaY4ZLGA3FgwRcYJghpST3b5Z5QjgxzGm_IQfRNOaEzO2v311MnK=w1200'
   ];
-  const GAP=6, TARGET_H=300, MAX_H=480;
+  const GAP=6,TARGET_H=300,MAX_H=480;
   const mosaic=document.getElementById('photoMosaic');
   let loaded=0;
   const imgs=srcs.map(src=>{const i=new Image();i.src=src;return i;});
@@ -559,7 +584,6 @@ const photoBase64=null;
   function build(){
     mosaic.innerHTML='';
     const W=mosaic.getBoundingClientRect().width||900;
-    // group into rows
     const rows=[];
     let row=[],ratioSum=0;
     imgs.forEach((img,idx)=>{
@@ -572,7 +596,6 @@ const photoBase64=null;
         row=[];ratioSum=0;
       }
     });
-    // render
     rows.forEach(({items,ratioSum})=>{
       let h=Math.round((W-(items.length-1)*GAP)/ratioSum);
       h=Math.min(h,MAX_H);
