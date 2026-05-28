@@ -155,18 +155,21 @@ nav a.nav-cta:hover{background:var(--brown);border-color:var(--brown)}
 /* DRESSCODE */
 .dresscode-wrap{max-width:700px;margin:0 auto;text-align:center}
 .dresscode-text{color:var(--muted);font-size:.97rem;line-height:1.85;margin-bottom:2.2rem}
-.color-palette{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding-bottom:2.5rem}
+.color-palette{display:flex;justify-content:center;gap:1rem;flex-wrap:nowrap;padding-bottom:2.5rem}
 .color-swatch{
-  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
 }
 .swatch-dot{
-  width:72px;height:72px;border-radius:50%;
+  width:60px;height:60px;border-radius:50%;
   box-shadow:0 4px 14px rgba(0,0,0,.15);
   flex-shrink:0;
 }
 .swatch-label{
-  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--muted);white-space:nowrap;
+}
+@media(max-width:700px){
+  .color-palette{flex-wrap:wrap;gap:1rem}
 }
 
 /* GALERIE */
@@ -375,27 +378,27 @@ footer strong{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size
         </div>
         <div class="color-swatch">
           <div class="swatch-dot" style="background:#a8906e"></div>
-          <span class="swatch-label">Lněná béžová</span>
+          <span class="swatch-label">Khaki</span>
         </div>
         <div class="color-swatch">
           <div class="swatch-dot" style="background:#c08068"></div>
-          <span class="swatch-label">Starorůžová</span>
-        </div>
-        <div class="color-swatch">
-          <div class="swatch-dot" style="background:#7e3e1a"></div>
           <span class="swatch-label">Terakota</span>
         </div>
         <div class="color-swatch">
+          <div class="swatch-dot" style="background:#7e3e1a"></div>
+          <span class="swatch-label">Rezavá</span>
+        </div>
+        <div class="color-swatch">
           <div class="swatch-dot" style="background:#d49420"></div>
-          <span class="swatch-label">Okrová</span>
+          <span class="swatch-label">Okr</span>
         </div>
         <div class="color-swatch">
           <div class="swatch-dot" style="background:#3e5246"></div>
-          <span class="swatch-label">Šedozelená</span>
+          <span class="swatch-label">Lesní zelená</span>
         </div>
         <div class="color-swatch">
           <div class="swatch-dot" style="background:#3e4018"></div>
-          <span class="swatch-label">Lesní zelená</span>
+          <span class="swatch-label">Olivová</span>
         </div>
       </div>
     </div>
